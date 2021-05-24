@@ -163,6 +163,8 @@ class PDFKit(object):
         if(len(first_arg) > 0):
             del(args[0])
             args = first_arg + args
+            if(args[0].split("/")[-1] == "xvfb-run"):
+                args.insert(1, '-a')
 
         if sys.platform == 'win32':
             #hide cmd window
