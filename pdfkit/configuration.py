@@ -23,17 +23,17 @@ class Configuration(object):
                     startupinfo.wShowWindow = subprocess.SW_HIDE
 
                     self.wkhtmltopdf = subprocess.Popen(
-                        ['where.exe', 'xvfb-run wkhtmltopdf'], stdout=subprocess.PIPE, startupinfo=startupinfo).communicate()[0]
+                        ['where.exe', 'wkhtmltopdf'], stdout=subprocess.PIPE, startupinfo=startupinfo).communicate()[0]
                 else:
                     self.wkhtmltopdf = subprocess.Popen(
-                        ['which', 'xvfb-run wkhtmltopdf'], stdout=subprocess.PIPE).communicate()[0]
+                        ['which', 'xvfb-run', 'wkhtmltopdf'], stdout=subprocess.PIPE).communicate()[0]
 
             lines = self.wkhtmltopdf.splitlines()
             if len(lines) > 0:
-                self.wkhtmltopdf = lines[0].strip()
+                self.wkhtmltopdf = lines[0].strip() + b" " + lines[1].strip()
 
-            with open(self.wkhtmltopdf) as f:
-                pass
+            # with open(self.wkhtmltopdf) as f:
+            #     pass
         except (IOError, FileNotFoundError) as e:
             raise IOError('No wkhtmltopdf executable found: "%s"\n'
                           'If this file exists please check that this process can '
