@@ -23,10 +23,10 @@ class Configuration(object):
                     startupinfo.wShowWindow = subprocess.SW_HIDE
 
                     self.wkhtmltopdf = subprocess.Popen(
-                        ['where.exe', 'wkhtmltopdf'], stdout=subprocess.PIPE, startupinfo=startupinfo).communicate()[0]
+                        ['where.exe', 'xvfb-run wkhtmltopdf'], stdout=subprocess.PIPE, startupinfo=startupinfo).communicate()[0]
                 else:
                     self.wkhtmltopdf = subprocess.Popen(
-                        ['which', 'wkhtmltopdf'], stdout=subprocess.PIPE).communicate()[0]
+                        ['which', 'xvfb-run wkhtmltopdf'], stdout=subprocess.PIPE).communicate()[0]
 
             lines = self.wkhtmltopdf.splitlines()
             if len(lines) > 0:
