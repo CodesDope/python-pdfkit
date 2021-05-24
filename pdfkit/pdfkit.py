@@ -159,8 +159,10 @@ class PDFKit(object):
 
     def to_pdf(self, path=None):
         args = self.command(path)
-        print(path)
-        print(args)
+        first_arg = args[0].split(" ")
+        if(len(first_arg) > 0):
+            del(args[0])
+            args = first_arg + args
 
         if sys.platform == 'win32':
             #hide cmd window
